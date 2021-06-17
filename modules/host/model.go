@@ -1,7 +1,8 @@
 package host
 
+import "ping/com/mysql"
 
-type HostInfo struct {
+type Device struct {
 	Id         int64  `form:"id" sql:"id" json:"id"`
 	Hostname   string `form:"hostname" sql:"hostname" json:"hostname" xlsx:"0"`
 	Address    string `form:"hostip" sql:"hostip" json:"hostip" xlsx:"2"`
@@ -24,7 +25,7 @@ type Line struct {
 	BandWidth       int    `sql:"band_width"`        // 	带宽
 	BEndDescription string `sql:"b_end_description"` // 	B端简述
 	LocalOrOther    string `sql:"local_or_other"`    // 	线路性质，本地或省或其它
-	InerOrOuter     string `sql:"inner_or_outer"`     // 	内线外线
+	InerOrOuter     string `sql:"inner_or_outer"`    // 	内线外线
 	LineNumber      string `sql:"line_number"`       // 	电路编号
 	VlanId          string `sql:"vlan_id"`           // 	vlan id
 	AEndCreateBy    string `sql:"a_end_create_by"`   // A端电路发起人
@@ -33,9 +34,42 @@ type Line struct {
 
 }
 
+type Switch Device
+type Firewall Device
+type Router Device
+type Linux Device
+
 // Host_Line 主机与线路关系表
 type Host_Line struct {
 	id      int64 `sql:"id"`
 	Host_id int64 `sql:"host_id"`
 	Line_id int64 `sql:"line_id"`
+}
+
+func (h *Device) Clone() (obj mysql.Object) {
+	return &Device{}
+}
+
+func (h *Switch) Clone() (obj mysql.Object) {
+	return &Switch{}
+}
+
+func (h *Firewall) Clone() (obj mysql.Object) {
+	return &Firewall{}
+}
+
+func (h *Linux) Clone() (obj mysql.Object) {
+	return &Linux{}
+}
+
+func (h *Router) Clone() (obj mysql.Object) {
+	return &Router{}
+}
+
+func (h *Line) Clone() (obj mysql.Object) {
+	return &Line{}
+}
+
+func (h *Host_Line) Clone() (obj mysql.Object) {
+	return &Host_Line{}
 }
