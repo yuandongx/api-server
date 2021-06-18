@@ -1,6 +1,8 @@
 package mysql
 
-import "testing"
+import (
+	"testing"
+)
 
 type TestCaseStruct struct {
 	Tname    string `sql:"name" len:"257"`
@@ -39,4 +41,9 @@ func TestCreate(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestQuery(t *testing.T) {
+	result := Query("SELECT * FROM `xuyuandong`.`app-accesscredentials-v1` ORDER BY `id`;", 8)
+	t.Log(result)
 }

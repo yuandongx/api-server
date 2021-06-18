@@ -14,11 +14,11 @@ func SetUp() *gin.Engine {
 	g.Use(cors.New(cors.Config{
 		// AllowOrigins:     []string{"http://foo.com"},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "OPTIONS", "DELETE", "UPDATE"},
-		AllowHeaders:     []string{"Origin", "X-Requested-With", "XMLHttpRequest", "Content-Type"},
+		AllowHeaders:     []string{"Origin", "X-Requested-With", "XMLHttpRequest", "Content-Type", "Access-Control-Allow-Origin"},
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 		AllowOriginFunc: func(origin string) bool {
-			ko, _ := regexp.MatchString("https?://127.0.0.1:6060", origin)
+			ko, _ := regexp.MatchString("https?://127.0.0.1:\\d+", origin)
 			return ko
 		},
 		MaxAge: 12 * time.Hour,

@@ -66,7 +66,7 @@ func Create(v interface{}) (int64, error) {
 	db := getConnection()
 	db.Exec(sqlDrop)
 	result, err := db.Exec(sqlstring)
-	display(sqlstring)
+	//display(sqlstring)
 	if err == nil {
 		return result.LastInsertId()
 	}
@@ -84,11 +84,11 @@ func Fetch(object Object) (values []interface{}) {
 	if err == nil {
 		for rows.Next() {
 			row := m.CloneRow()
-			rows.Scan(row...)
-			fmt.Println(row)
-			obj := object.Clone()
-			m.SetColumn(obj, row)
-			values = append(values, obj)
+			if err := rows.Scan(row...); err == nil {
+				obj := object.Clone()
+				m.SetColumn(obj, row)
+				values = append(values, obj)
+			}
 		}
 	} else {
 		display("Query all data failed:", err)
@@ -110,6 +110,27 @@ func Read(v interface{}) {
 	}
 	m.SetColumn(v, values)
 	return
+}
+
+func Query(s string, count int) (result [][]interface{}) {
+	result = make([][]interface{}, 0)
+	db := getConnection()
+	rows, err := db.Query(s)
+	if err == nil {
+		for rows.Next() {
+			values := make([]interface{}, count)
+			for i := 0; i < count; i++ {
+				values[i] = new(interface{})
+			}
+			rows.Scan(values...)
+			tmp := make([]interface{}, count)
+			for i, v := range values {
+				tmp[i] = v.(*interface{})
+			}
+			result = append(result, tmp)
+		}
+	}
+	return result
 }
 
 func Update(v interface{}) (id int64, err error) {

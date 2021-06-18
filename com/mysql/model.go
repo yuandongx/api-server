@@ -68,7 +68,7 @@ func (m *Model) init(v interface{}) {
 			if l, ok := field.Tag.Lookup("len"); ok {
 				if i, e := strconv.Atoi(l); e == nil {
 					m.ranges[tag] = i
-					display("lenght-->", i, tag)
+					//display("lenght-->", i, tag)
 				}
 			}
 
@@ -117,11 +117,11 @@ func (m *Model) CloneRow() (row []interface{}) {
 
 func (m *Model) SetColumn(v interface{}, values []interface{}) {
 	refv := reflect.ValueOf(v)
-	display("SetColumn values")
-	for i, v := range m.indexs {
+	//display("SetColumn values")
+	for i, _ := range m.indexs {
 		kind := m.fieldKinds[i]
 		value := values[i]
-		display("SetColumn: ", v, kind, value, refv.Elem().Field(i).CanSet())
+		//display("SetColumn: ", v, kind, value, refv.Elem().Field(i).CanSet())
 		var ok bool
 		switch kind {
 		case reflect.Int:
