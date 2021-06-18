@@ -4,6 +4,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"ping/modules/host"
+	"ping/modules/setting"
 	"regexp"
 	"time"
 )
@@ -26,6 +27,7 @@ func SetUp() *gin.Engine {
 	{
 		v1.POST("/cluster/:name/*action", host.V1Post)
 		v1.GET("/cluster/:name/*id", host.V1Get)
+		v1.GET("/setting/credential/*id", setting.AccessCredentGetV1)
 	}
 	return g
 }
