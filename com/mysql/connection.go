@@ -3,7 +3,7 @@ package mysql
 import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
-	"ping/com"
+	"ping/com/log"
 )
 
 func getConnection() (driver *sql.DB) {
@@ -14,18 +14,18 @@ func getConnection() (driver *sql.DB) {
 	}
 	driver, err := sql.Open("mysql", "root:admin@12345@tcp(81.70.9.203:3306)/xuyuandong")
 	if err != nil {
-		com.display("数据库连接失败！")
-		com.display(err)
+		log.Err0r("数据库连接失败！")
+		log.Err0r(err)
 		return nil
 	}
-	com.display("db connected!")
+	log.Info("db connected!")
 	return driver
 }
 
 func exec(driver *sql.DB, prepare string, values []interface{}) bool {
 	stmt, err := driver.Prepare(prepare)
 	if err != nil {
-		com.display(err)
+		log.Err0r(err)
 		return false
 	}
 	defer stmt.Close()
