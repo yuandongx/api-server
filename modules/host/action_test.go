@@ -32,6 +32,7 @@ func Test_addHost(t *testing.T) {
 			wantErr: false,
 		},
 	}
+	mysql.Create(&Switch{})
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			gotId, err := addHost(&tt.args.h)
