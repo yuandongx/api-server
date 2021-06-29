@@ -18,7 +18,7 @@ func getConnection() (driver *sql.DB) {
 		log.Err0r(err)
 		return nil
 	}
-	log.Err0r("db connected!")
+	log.Info("db connected!")
 	return driver
 }
 
