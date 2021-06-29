@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       db:
-        image: mysql:latest
+        image: registry.cn-hangzhou.aliyuncs.com/yuandongx/mysql:latest
         # command: --default-authentication-plugin=mysql_native_password
         # restart: always
         volumes:
