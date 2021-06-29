@@ -13,7 +13,7 @@ jobs:
       db:
         image: mysql:latest
         # command: --default-authentication-plugin=mysql_native_password
-        restart: always
+        # restart: always
         volumes:
           - /var/lib/database/mysql:/var/lib/mysql
         ports:
