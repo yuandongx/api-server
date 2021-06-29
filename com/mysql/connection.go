@@ -11,7 +11,7 @@ func getConnection() (driver *sql.DB) {
 			return connection
 		}
 	}
-	driver, err := sql.Open("mysql", "root:admin@12345@tcp(127.0.0.1:3306)/xuyuandong")
+	driver, err := sql.Open("mysql", "root:admin@12345@tcp(127.0.0.1:3306)/mysql")
 	if err != nil {
 		display("数据库连接失败！")
 		display(err)
