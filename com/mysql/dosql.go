@@ -2,6 +2,7 @@ package mysql
 
 import (
 	"fmt"
+	"ping/com/log"
 	"reflect"
 	"strings"
 )
@@ -91,7 +92,7 @@ func Fetch(object Object) (values []interface{}) {
 			}
 		}
 	} else {
-		display("Query all data failed:", err)
+		log.Warn("Query all data failed:", err)
 	}
 	return values
 }
@@ -106,7 +107,7 @@ func Read(v interface{}) {
 	values := m.CloneRow()
 	err := row.Scan(values...)
 	if err != nil {
-		display(err)
+		log.Err0r(err)
 	}
 	m.SetColumn(v, values)
 	return

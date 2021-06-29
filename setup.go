@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"ping/modules/host"
@@ -22,6 +23,17 @@ func SetUp() *gin.Engine {
 			return ko
 		},
 		MaxAge: 12 * time.Hour,
+	}))
+	g.Use(gin.LoggerWithFormatter(func(param gin.LogFormatterParams) string {
+		return fmt.Sprintf("%s - [%s] \"%s %s %s %d %s\"\n",
+			param.ClientIP,
+			param.TimeStamp.Format(time.RFC1123),
+			param.Method,
+			param.Path,
+			param.Request.Proto,
+			param.StatusCode,
+			param.ErrorMessage,
+		)
 	}))
 	v1 := g.Group("/v1")
 	{
