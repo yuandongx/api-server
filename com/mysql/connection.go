@@ -5,13 +5,13 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func getConnection() (driver *sql.DB)  {
+func getConnection() (driver *sql.DB) {
 	if connection != nil {
 		if err := connection.Ping(); err == nil {
 			return connection
 		}
 	}
-	driver, err := sql.Open("mysql", "root:admin@12345@tcp(81.70.9.203:3306)/xuyuandong")
+	driver, err := sql.Open("mysql", "root:admin@12345@tcp(127.0.0.1:3306)/xuyuandong")
 	if err != nil {
 		display("数据库连接失败！")
 		display(err)
@@ -31,4 +31,3 @@ func exec(driver *sql.DB, prepare string, values []interface{}) bool {
 	stmt.Exec(values...)
 	return true
 }
-
