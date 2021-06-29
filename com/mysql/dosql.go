@@ -16,7 +16,7 @@ func Insert(v interface{}) (id int64, err error) {
 		_columns[i] = "?"
 		columns[i] = fmt.Sprintf("`%s`", m.fields[i])
 	}
-	sqlString := fmt.Sprintf(insert_sql, m.table, strings.Join(columns, ", "), strings.Join(_columns, ", "))
+	sqlString := fmt.Sprintf(insertSql, m.table, strings.Join(columns, ", "), strings.Join(_columns, ", "))
 	db := getConnection()
 	result, err := db.Exec(sqlString, values...)
 	if err == nil {
@@ -61,7 +61,7 @@ func Create(v interface{}) (int64, error) {
 	if id != "" {
 		columns = append(columns, fmt.Sprintf("PRIMARY KEY ( `%s` )", id))
 	}
-	sqlstring := fmt.Sprintf(creat_table, m.table, strings.Join(columns, ", "))
+	sqlstring := fmt.Sprintf(creatTable, m.table, strings.Join(columns, ", "))
 	sqlDrop := fmt.Sprintf("DROP TABLE IF EXISTS `%s`;", m.table)
 	db := getConnection()
 	db.Exec(sqlDrop)
@@ -78,7 +78,7 @@ func Fetch(object Object) (values []interface{}) {
 	m := Model{}
 	m.init(object)
 	values = make([]interface{}, 0)
-	sqlLine := fmt.Sprintf(select_sql, strings.Join(m.columns, ", "), m.table)
+	sqlLine := fmt.Sprintf(selectSql, strings.Join(m.columns, ", "), m.table)
 	db := getConnection()
 	rows, err := db.Query(sqlLine)
 	if err == nil {
@@ -99,7 +99,7 @@ func Fetch(object Object) (values []interface{}) {
 func Read(v interface{}) {
 	m := Model{}
 	m.init(v)
-	sqlLine := fmt.Sprintf(select_sql, strings.Join(m.columns, ", "), m.table)
+	sqlLine := fmt.Sprintf(selectSql, strings.Join(m.columns, ", "), m.table)
 	fmt.Println(sqlLine)
 	db := getConnection()
 	row := db.QueryRow(sqlLine)

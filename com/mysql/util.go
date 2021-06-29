@@ -3,7 +3,7 @@ package mysql
 import "log"
 
 func display(v ...interface{}) {
-	if mysql_log_on {
+	if mysqlLogOn {
 		log.Println(v...)
 	}
 }

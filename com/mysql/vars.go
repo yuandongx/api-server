@@ -6,11 +6,12 @@ import (
 )
 
 var (
-	mysql_log_on bool    = true
-	connection   *sql.DB = nil
-	creat_table          = "CREATE TABLE `%s` (%s) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;"
-	insert_sql           = "INSERT INTO `%s` (%s) VALUES (%s);"
-	select_sql           = "SELECT %s FROM `%s`;"
+	mysqlDns   string  = "root:admin@12345@tcp(81.70.9.203:3306)/mysql"
+	mysqlLogOn bool    = true
+	connection *sql.DB = nil
+	creatTable         = "CREATE TABLE `%s` (%s) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;"
+	insertSql          = "INSERT INTO `%s` (%s) VALUES (%s);"
+	selectSql          = "SELECT %s FROM `%s`;"
 )
 
 type Model struct {
